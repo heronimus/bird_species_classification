@@ -2,7 +2,7 @@
 
 Inter species classification
 
-**Updates: Paper accepted at 3rd WCVA Workshop, 11th ICVGIP'18 Conference :grimacing:**
+**Paper accepted at 11th ICVGIP'18 Conference, WCVA Workshop :grimacing:**
 
 # :relaxed:[***CHALLENGE WINNERS***](http://www.iiitdmj.ac.in/CVIP-2018/BPA.html):relaxed:
 
@@ -55,15 +55,19 @@ To help running the model, end to end a docx has been added in case much informa
 
 ## Citation
 If you use this repository, please use this bibtex to cite the paper:
- ```javascript
-@article{DBLP:journals/corr/abs-1810-04250,
-  author    = {Akash Kumar and
-               Sourya Dipta Das},
-  title     = {Bird Species Classification using Transfer Learning with Multistage
-               Training},
-  journal   = {CoRR},
-  volume    = {abs/1810.04250},
-  year      = {2018}
+ ```
+@InProceedings{10.1007/978-981-15-1387-9_3,
+author="Kumar, Akash
+and Das, Sourya Dipta",
+editor="Arora, Chetan
+and Mitra, Kaushik",
+title="Bird Species Classification Using Transfer Learning with Multistage Training",
+booktitle="Computer Vision Applications",
+year="2019",
+publisher="Springer Singapore",
+address="Singapore",
+pages="28--38",
+isbn="978-981-15-1387-9"
 } 
 ```
 
@@ -88,14 +92,8 @@ As a new dataset always have some problems whereas some major challenges too:
 
 ## Experiments 
 
-I tried multi-stage training with training on original images first and then on crops and on crops and then on original images. Firstly, training on the images and then on the crops gave the better results. As well as for testing, we use Inception V3 crops weights and Inception ResNet V2 crops+images weights to identify the specie of bird. <br />
-Please find the weight file for 7 epochs a follows:<br />
-[1] [inception_v3_crops.h5](https://drive.google.com/open?id=1aZbAKPoKTlZ3vVjhB120veu_YoSxQl6X) - Trained only on cropped images. <br />
-[2] [inception_v3_crops+images.h5](https://drive.google.com/open?id=1kv76lIq4BQ0NycATrrMrLAD9SxnIR_AN) - Trained on Images plus crops. <br />
-[3] [inception_resnet_v2_images.h5](https://drive.google.com/open?id=1ABTrngtdJLBEwFYbRh4O6CRbTWHh-X6z) - Trained on Images only. <br />
-[4] [inception_resnet_v2_images+crops.h5](https://drive.google.com/open?id=1s6gXZ_i92qoXalx44NPgC30VMpsOyjih) - Trained on Images + crops for 7 epochs. <br />
-
-We could have trained it for more epochs but it was not giving significant iprovements in the results at all. 
+I tried multi-stage training with training on original images first and then on crops and on crops and then on original images. Firstly, training on the images and then on the crops gave the better results. As well as for testing, we use Inception V3 crops weights and Inception ResNet V2 crops+images weights to identify the specie of bird. <br /> 
+I have removed the weights file as it was hosted on my personal server. Plus, there are better imagenet models that have been published which will easily outperform Inception V3 and Inception ResNetV2. 
 
 ## Model Architecture
 
@@ -139,4 +137,5 @@ Paper uploaded on arXiv: prePrint Version: **[Bird Species Classification with T
 [1] Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jonathon Shlens, Zbigniew Wojna, "[
 Rethinking the Inception Architecture for Computer Vision](https://arxiv.org/abs/1512.00567)" arXiv preprint arXiv:1512.00567. <br />
 [2] Christian Szegedy, Sergey Ioffe, Vincent Vanhoucke, Alex Alemi, "[Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning](https://arxiv.org/abs/1602.07261)" arXiv preprint arXiv:1602.07261. <br />
-[3] Kaiming He, Georgia Gkioxari, Piotr Dollár, Ross Girshick, "[Mask R-CNN](https://arxiv.org/abs/1703.06870)" arXiv preprint arXiv:1703.06870 
+[3] Kaiming He, Georgia Gkioxari, Piotr Dollár, Ross Girshick, "[Mask R-CNN](https://arxiv.org/abs/1703.06870)" arXiv preprint arXiv:1703.06870. <br />
+[4] Mask R-CNN Github repo. "[Link](https://github.com/matterport/Mask_RCNN)" <br />

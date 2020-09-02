@@ -1,70 +1,125 @@
-from os.path import isfile, join
-from os import rename, listdir, rename, makedirs
-from shutil import copyfile, move
-import random
+from os.path import join, exists
+from os import listdir, makedirs
+from shutil import copyfile
 
-species = ["blasti", "bonegl", "brhkyt", "cbrtsh", "cmnmyn", "gretit", "hilpig", "himbul", "himgri", "hsparo", "indvul"
-    , "jglowl", "lbicrw", "mgprob", "rebimg", "wcrsrt"]
+species = [
+    "blasti",
+    "bonegl",
+    "brhkyt",
+    "cbrtsh",
+    "cmnmyn",
+    "gretit",
+    "hilpig",
+    "himbul",
+    "himgri",
+    "hsparo",
+    "indvul",
+    "jglowl",
+    "lbicrw",
+    "mgprob",
+    "rebimg",
+    "wcrsrt",
+]
 
 
-initial = './train_data/'
-final = './train/'
+source_folder = "./train_data/"
+destination_folder = "./train/"
 
 
 def rename_files():
-	classes = 1
+    """
+    Initially the file names are incosistent. This function
+    changes the file name to make it more understanding.
 
-	for i in species:
+    Example - for example, DSC_6272.jpg may be changed to 100101.jpg
+    For bird_specie_counter < 10, in this,
+    100 -> original image, 1 -> Class Number, 01 -> Image Number
 
-		# 
-		source = join(initial, i)
-		files = listdir(source)
-		files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+    Similarly, for the case if the species counter is greater than 10.
+    """
+    bird_specie_counter = 1
 
-		for file in files:
+    for bird_specie in species:
 
-			destination = join(final, i)
-			
-			if classes<10:
-				
-				images = 0
-				for file in files:
+        #
+        source_image_dir = join(source_folder, bird_specie)
+        print(source_image_dir)
+        source_images = listdir(source_image_dir)
+        print(source_images)
 
-					if images<10:
-						# 00 - Data Augmentation 00- Classes 01 - Images 100101.jpg
-						copyfile(join(source, file), join(destination,  str(100) + str(classes) + str(0) + str(images) + '.jpg'))
-					
-					elif images>=10:
-						copyfile(join(source, file), join(destination, str(100) + str(classes) + str(images) + '.jpg'))
+        for source_image in source_images:
 
-					images+=1
+            destination = join(destination_folder, bird_specie)
+            print(destination)
+            if bird_specie_counter < 10:
 
-			elif classes>=10:
+                images = 0
+                for source_image in source_images:
 
-				images = 0
-				
-				for file in files:
-				
-					if images<10:
-						copyfile(join(source, file), join(destination, str(10) + str(classes) + str(0) + str(images) + '.jpg'))
-				
-					elif images>=10:
-						copyfile(join(source, file), join(destination, str(10) + str(classes) + str(images) + '.jpg'))
-					images+=1
+                    if images < 10:
+                        copyfile(
+                            join(source_image_dir, source_image),
+                            join(
+                                destination,
+                                str(100)
+                                + str(bird_specie_counter)
+                                + str(0)
+                                + str(images)
+                                + ".jpg",
+                            ),
+                        )
 
-		classes+=1
+                    elif images >= 10:
+                        copyfile(
+                            join(source_image_dir, source_image),
+                            join(
+                                destination,
+                                str(100)
+                                + str(bird_specie_counter)
+                                + str(images)
+                                + ".jpg",
+                            ),
+                        )
+
+                    images += 1
+
+            elif bird_specie_counter >= 10:
+
+                images = 0
+
+                for source_image in source_images:
+
+                    if images < 10:
+                        copyfile(
+                            join(source_image_dir, source_image),
+                            join(
+                                destination,
+                                str(10)
+                                + str(bird_specie_counter)
+                                + str(0)
+                                + str(images)
+                                + ".jpg",
+                            ),
+                        )
+
+                    elif images >= 10:
+                        copyfile(
+                            join(source_image_dir, source_image),
+                            join(
+                                destination,
+                                str(10)
+                                + str(bird_specie_counter)
+                                + str(images)
+                                + ".jpg",
+                            ),
+                        )
+                    images += 1
+
+        bird_specie_counter += 1
 
 
-
-if __name__ == '__main__':
-
-	makedirs(final)
-
-	for i in species:
-	
-		makedirs(join(final, i))
-
-	rename_files()
-
-	
-
+if __name__ == "__main__":
+    for bird_specie in species:
+        if not exists(join(destination_folder, bird_specie)):
+            destination = makedirs(join(destination_folder, bird_specie))
+    rename_files()
